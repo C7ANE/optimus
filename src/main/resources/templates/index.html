@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Camdidate Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       .wrapper{
+           margin: auto;
+           width: 50%;
+           border: 3px solid green;
+           padding: 10px;
+       }
+       h1{
+           margin: 0 auto;
+           width: 50%;
+       }
+       h3{
+           text-transform: uppercase;
+       }
+       label{
+           font-size: 12px;
+           color: darkgrey;
+           display: block;
+       }
+       input{
+           font-size: 24px;
+           display: block;
+       }
+       .btn-1{
+           margin-top: 1%;
+           border:1px solid black;
+           font-size: 18px;
+       }
+    </style>
+</head>
+<body>
+<h1>CANDIDATE FORM</h1>
+<div class="wrapper">
+    <!--/*@thymesVar id="candidate" type=""*/-->
+    <form action="#" th:action="@{/formCandidate}" th:object="${candidate}" method="post">
+        <h3>please unsubscribe</h3>
+        <div class="formForCandidate">
+            <label>FIRST NAME<input type="text" ></label>
+            <label>LAST NAME<input type="text" ></label>
+            <label>EMAIL<input type="email" ></label>
+            <button class="btn-1" type="submit" >send</button>
+        </div>
+
+
+    </form>
+    
+    
+</div>
+</body>
+</html>

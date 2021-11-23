@@ -2,19 +2,20 @@ package pl.optimus.appAdmin.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = false)
 
 @MappedSuperclass
-public class AbstractEntity {
+public class AbstractEntity<I extends Serializable>
+implements Serializable{
 
-    @EqualsAndHashCode.Include
     @ToString.Include
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true,nullable = false)
-    private  Long id;
+    private Long id;
 }
