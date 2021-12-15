@@ -3,14 +3,14 @@ package pl.optimus.appAdmin.domain;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serial;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -40,6 +40,13 @@ public class Candidate extends AbstractEntity {
     @Email
     @NotNull
     private String email;
+
+
+    @OneToMany
+    private HashSet<Integer> userCounts = new HashSet<>();
+
+    @Size(max=300)
+    private String Content;
 
 
 
