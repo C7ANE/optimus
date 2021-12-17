@@ -18,6 +18,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = true)
 @ToString(onlyExplicitlyIncluded = true)
+
 @Entity
 @Table(name = "candidates")
 public class candidate extends AbstractEntity {
