@@ -42,8 +42,6 @@ public class Candidate extends AbstractEntity {
     private String email;
 
 
-    @OneToMany
-    private HashSet<Integer> userCounts = new HashSet<>();
 
     @Size(max=300)
     private String Content;
