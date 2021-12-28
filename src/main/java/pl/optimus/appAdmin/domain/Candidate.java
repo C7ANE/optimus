@@ -41,12 +41,8 @@ public class Candidate extends AbstractEntity {
     @NotNull
     private String email;
 
-
-
     @Size(max=300)
     private String Content;
-
-
 
 
 }

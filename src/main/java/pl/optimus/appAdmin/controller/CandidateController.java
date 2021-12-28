@@ -13,6 +13,8 @@ import pl.optimus.appAdmin.domain.Candidate;
 import pl.optimus.appAdmin.repository.CandidateRepository;
 import pl.optimus.appAdmin.service.EmailService;
 
+import javax.mail.MessagingException;
+
 @Slf4j
 @Controller
 @RequestMapping("/candidates")
@@ -29,10 +31,11 @@ public class CandidateController {
 
 
     @PostMapping
-    public String saveCandidate(@ModelAttribute Candidate candidateModel, RedirectAttributes redirectAttr){
+    public String saveCandidate(@ModelAttribute Candidate candidateModel, RedirectAttributes redirectAttr) throws MessagingException {
         candidateRepo.save(candidateModel);
         redirectAttr.addFlashAttribute("message", "The form has been sent");
         log.info("create new candidate");
+        emailService.sendMessage(candidateModel.getFirstName(),candidateModel.getEmail(),candidateModel.getContent());
         return "message";
     }
 
