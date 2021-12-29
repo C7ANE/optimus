@@ -31,11 +31,20 @@ public class CandidateController {
 
 
     @PostMapping
-    public String saveCandidate(@ModelAttribute Candidate candidateModel, RedirectAttributes redirectAttr) throws MessagingException {
-        candidateRepo.save(candidateModel);
+    public String saveCandidate(@ModelAttribute Candidate candidatModel, RedirectAttributes redirectAttr) throws MessagingException {
+        candidateRepo.save(candidatModel);
+
         redirectAttr.addFlashAttribute("message", "The form has been sent");
         log.info("create new candidate");
-        emailService.sendMessageToUser(candidateModel.getFirstName(),candidateModel.getEmail(),candidateModel.getContent());
+        log.error("Creating a new user failed ");
+
+        emailService.sendMessageToUser(candidatModel.getFirstName(),candidatModel.getEmail(),candidatModel.getContent());
+        log.info("sent email to the user");
+        log.error("Failed to send the message to the user");
+
+        emailService.sendMessageToClient(candidatModel.getFirstName(),candidatModel.getLastName(),candidatModel.getEmail(),candidatModel.getContent());
+        log.info("sent email to the Client");
+        log.error("Failed to send the message to the Client");
         return "message";
     }
 

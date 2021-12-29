@@ -1,6 +1,7 @@
 package pl.optimus.appAdmin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -33,20 +34,24 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendMessageToClient(String firstName, String lastName, String email, String content) throws MessagingException {
         MimeMessage messageToClient = javaMailSender.createMimeMessage();
-        MimeMessageHelper mmHelperToClinet = new MimeMessageHelper(messageToClient);
+        MimeMessageHelper mmHelperToClinet = new MimeMessageHelper(messageToClient,true,"UTF-8");
+
 
         mmHelperToClinet.setTo("zurok18@gmail.com");
-
+        mmHelperToClinet.setFrom("worktestmail1992@gmail.com");
         String fullName = firstName + lastName;
 
         String mailSubject =  fullName + " has sent the completed form";
-        String mailContent = "Sender name: " + fullName + "\n";
-        mailContent += "Sender Email: " + email + "\n";
-        mailContent += "a message from to user" + "\n" + "\n";
-        mailContent += content;
+        String mailContent ="<p><b> Sender name: </b>" + fullName + "</p>";
+        mailContent += "<p><b>Sender Email: </b>" + email + "</p>";
+        mailContent += "<p><b>A message from to user </b>" + "<br>";
+        mailContent += content + "<hr><img src='cid:myLogo' />";
+
+
+        mmHelperToClinet.addInline("myLogo",new ClassPathResource("/static/image/logo.png"));
 
         mmHelperToClinet.setSubject(mailSubject);
-        mmHelperToClinet.setText(mailContent);
+        mmHelperToClinet.setText(mailContent,true);
         javaMailSender.send(messageToClient);
     }
 
