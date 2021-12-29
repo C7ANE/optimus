@@ -21,7 +21,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendMessage(String firstName,String to, String text)throws MessagingException {
+    public void sendMessageToUser(String firstName,String to, String text)throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(to);

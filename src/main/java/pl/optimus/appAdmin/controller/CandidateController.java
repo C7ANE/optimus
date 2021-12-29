@@ -35,7 +35,7 @@ public class CandidateController {
         candidateRepo.save(candidateModel);
         redirectAttr.addFlashAttribute("message", "The form has been sent");
         log.info("create new candidate");
-        emailService.sendMessage(candidateModel.getFirstName(),candidateModel.getEmail(),candidateModel.getContent());
+        emailService.sendMessageToUser(candidateModel.getFirstName(),candidateModel.getEmail(),candidateModel.getContent());
         return "message";
     }
 
