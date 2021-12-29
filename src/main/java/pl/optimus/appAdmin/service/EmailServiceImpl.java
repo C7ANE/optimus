@@ -22,12 +22,32 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendMessageToUser(String firstName,String to, String text)throws MessagingException {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-        mimeMessageHelper.setTo(to);
-        mimeMessageHelper.setSubject("thanks for sending the application " + firstName);
-        mimeMessageHelper.setText(text);
-        javaMailSender.send(mimeMessage);
+        MimeMessage messageToUser = javaMailSender.createMimeMessage();
+        MimeMessageHelper mmHelperToUser = new MimeMessageHelper(messageToUser);
+        mmHelperToUser.setTo(to);
+        mmHelperToUser.setSubject("thanks for sending the application " + firstName);
+        mmHelperToUser.setText(text);
+        javaMailSender.send(messageToUser);
+    }
+
+    @Override
+    public void sendMessageToClient(String firstName, String lastName, String email, String content) throws MessagingException {
+        MimeMessage messageToClient = javaMailSender.createMimeMessage();
+        MimeMessageHelper mmHelperToClinet = new MimeMessageHelper(messageToClient);
+
+        mmHelperToClinet.setTo("zurok18@gmail.com");
+
+        String fullName = firstName + lastName;
+
+        String mailSubject =  fullName + " has sent the completed form";
+        String mailContent = "Sender name: " + fullName + "\n";
+        mailContent += "Sender Email: " + email + "\n";
+        mailContent += "a message from to user" + "\n" + "\n";
+        mailContent += content;
+
+        mmHelperToClinet.setSubject(mailSubject);
+        mmHelperToClinet.setText(mailContent);
+        javaMailSender.send(messageToClient);
     }
 
 }
