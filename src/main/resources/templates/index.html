@@ -16,14 +16,14 @@
 <h1>CANDIDATE FORM</h1>
 <div class="wrapper">
 
-    <form  th:action="@{/candidates}" th:object="${candidateModel}" method="post">
+    <form  th:action="@{/candidates}" th:object="${candidateModel}" method="post" enctype="multipart/form-data">
         <h3>please refill</h3>
         <div class="formForCandidate">
             <label>FIRST NAME<input type="text" th:field="*{firstName}"  ></label>
             <label>LAST NAME<input type="text" th:field="*{lastName}" ></label>
             <label>EMAIL<input type="email" th:field="*{email}" ></label>
             <label>CONTENT   <textarea name="" th:field="*{content}" id="" cols="30" rows="10"></textarea></label>
-            <label>Attachment<input type="file" ></label>
+            <label for >Attachment<input type="file" name="attachment" ></label>
 
             <button class="btn-1"  type="submit" >send</button>
         </div>
