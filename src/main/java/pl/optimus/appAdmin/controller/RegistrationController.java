@@ -2,16 +2,12 @@
 package pl.optimus.appAdmin.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.optimus.appAdmin.domain.Candidate;
-import pl.optimus.appAdmin.repository.CandidateRepository;
+import pl.optimus.appAdmin.domain.Register;
+import pl.optimus.appAdmin.repository.RegisterRepository;
 import pl.optimus.appAdmin.service.EmailService;
 
 import javax.mail.MessagingException;
@@ -19,34 +15,34 @@ import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @Controller
-@RequestMapping("/candidates")
-public class CandidateController {
+@RequestMapping("api/v1")
+public class RegistrationController {
 
-    private final CandidateRepository candidateRepo;
+    private final RegisterRepository registerRepository;
     private final EmailService emailService;
-    public CandidateController(CandidateRepository candidateRepo, EmailService emailService) {
-        this.candidateRepo = candidateRepo;
+    public RegistrationController(RegisterRepository registerRepository, EmailService emailService) {
+        this.registerRepository = registerRepository;
         this.emailService = emailService;
     }
 
 
 
 
-    @PostMapping
-    public String saveCandidate(@ModelAttribute Candidate candidatModel, RedirectAttributes redirectAttr,
+    @PostMapping("/registrator")
+    public String saveCandidate(@ModelAttribute Register  registerModel, RedirectAttributes redirectAttr,
                                 @RequestParam("attachment")MultipartFile multipartFile) throws MessagingException, UnsupportedEncodingException {
-        candidateRepo.save(candidatModel);
+        registerRepository.save( registerModel);
 
         redirectAttr.addFlashAttribute("message", "The form has been sent");
         log.info("create new candidate");
         log.error("Creating a new user failed ");
 
-        emailService.sendMessageToUser(candidatModel.getFirstName(),candidatModel.getEmail(),candidatModel.getContent());
+        emailService.sendMessageToUser( registerModel.getFirstName(), registerModel.getEmail(), registerModel.getContent());
         log.info("sent email to the user");
         log.error("Failed to send the message to the user");
 
-        emailService.sendMessageToClient(candidatModel.getFirstName(),candidatModel.getLastName(),candidatModel.getEmail(),
-                candidatModel.getContent(),multipartFile);
+        emailService.sendMessageToClient( registerModel.getFirstName(), registerModel.getLastName(), registerModel.getEmail(),
+                 registerModel.getContent(),multipartFile);
         log.info("sent email to the Client");
         log.error("Failed to send the message to the Client");
         return "message";

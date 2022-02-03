@@ -21,8 +21,7 @@ import java.util.Objects;
 @ToString(onlyExplicitlyIncluded = true)
 
 @Entity
-@Table(name = "candidates")
-public class Candidate extends AbstractEntity {
+public class Register extends AbstractEntity {
     @Serial
     private static final long serialVersionUID = 8539936152170847419L;
     @ToString.Include
