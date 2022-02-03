@@ -43,5 +43,8 @@ public class Register extends AbstractEntity {
     @Size(max=300)
     private String Content;
 
+    @OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
+    private List<RegisterDetails> registerDetailsList = new ArrayList<>();
+
 
 }

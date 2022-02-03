@@ -1,4 +1,4 @@
-package pl.optimus.appAdmin.service;
+package pl.optimus.appAdmin.service.email;
 
 import org.springframework.web.multipart.MultipartFile;
 

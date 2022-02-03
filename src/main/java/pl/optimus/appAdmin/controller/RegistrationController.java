@@ -8,9 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.optimus.appAdmin.domain.Register;
 import pl.optimus.appAdmin.repository.RegisterRepository;
-import pl.optimus.appAdmin.service.EmailService;
+import pl.optimus.appAdmin.service.email.EmailService;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 @Slf4j
@@ -30,7 +31,10 @@ public class RegistrationController {
 
     @PostMapping("/registrator")
     public String saveCandidate(@ModelAttribute Register  registerModel, RedirectAttributes redirectAttr,
-                                @RequestParam("attachment")MultipartFile multipartFile) throws MessagingException, UnsupportedEncodingException {
+                                @RequestParam("attachment")MultipartFile multipartFile,
+                                HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+       String[] serialNumber = request.getParameterValues("registerSerialNumber");
+
         registerRepository.save( registerModel);
 
         redirectAttr.addFlashAttribute("message", "The form has been sent");
