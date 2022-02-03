@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.optimus.appAdmin.domain.Register;
+import pl.optimus.appAdmin.domain.UplodedFile;
 import pl.optimus.appAdmin.repository.RegisterRepository;
+import pl.optimus.appAdmin.service.UploadFile.UploadFileService;
 import pl.optimus.appAdmin.service.email.EmailService;
 
 import javax.mail.MessagingException;
@@ -21,9 +23,11 @@ public class RegistrationController {
 
     private final RegisterRepository registerRepository;
     private final EmailService emailService;
-    public RegistrationController(RegisterRepository registerRepository, EmailService emailService) {
+    private final UploadFileService uploadFileService;
+    public RegistrationController(RegisterRepository registerRepository, EmailService emailService, UploadFileService uploadFileService) {
         this.registerRepository = registerRepository;
         this.emailService = emailService;
+        this.uploadFileService = uploadFileService;
     }
 
 
@@ -32,8 +36,10 @@ public class RegistrationController {
     @PostMapping("/registrator")
     public String saveCandidate(@ModelAttribute Register  registerModel, RedirectAttributes redirectAttr,
                                 @RequestParam("attachment")MultipartFile multipartFile,
+                                @RequestParam("registerSerialNumber")int number,
                                 HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-       String[] serialNumber = request.getParameterValues("registerSerialNumber");
+
+
 
         registerRepository.save( registerModel);
 

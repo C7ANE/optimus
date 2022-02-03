@@ -1,4 +1,4 @@
-package pl.optimus.appAdmin.service.email;
+package pl.optimus.appAdmin.service.email.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import pl.optimus.appAdmin.service.email.EmailService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
