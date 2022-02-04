@@ -29,4 +29,6 @@ public class RegisterDetails extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "register_id")
     private Register register;
+
+
 }

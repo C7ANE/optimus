@@ -46,5 +46,7 @@ public class Register extends AbstractEntity {
     @OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
     private List<RegisterDetails> registerDetailsList = new ArrayList<>();
 
-
+    public void addDetails(String serialNumber){
+        registerDetailsList.add(new RegisterDetails(serialNumber,this));
+    }
 }
