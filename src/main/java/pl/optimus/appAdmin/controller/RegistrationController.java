@@ -52,19 +52,16 @@ public class RegistrationController {
 
 
         redirectAttr.addFlashAttribute("message", "The form has been sent");
-        log.info("create new candidate");
-        log.error("Creating a new user failed ");
+
 
 
         emailService.sendMessageToUser( registerModel.getFirstName(), registerModel.getEmail(), registerModel.getContent());
-        log.info("sent email to the user");
-        log.error("Failed to send the message to the user");
+
 
 
         emailService.sendMessageToClient( registerModel.getFirstName(), registerModel.getLastName(), registerModel.getEmail(),
                  registerModel.getContent(),multipartFile);
-        log.info("sent email to the Client");
-        log.error("Failed to send the message to the Client");
+      
 
 
         return "message";
