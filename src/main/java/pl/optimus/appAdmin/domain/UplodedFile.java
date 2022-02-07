@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -28,6 +25,10 @@ public class UplodedFile {
     private String fileType;
     @Lob
     private byte[] fileData;
+
+    @ManyToOne
+    @JoinColumn(name = "register_id")
+    private Register register;
 
 
 }

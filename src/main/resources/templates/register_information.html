@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> List Registrator</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div><h1>List Register</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Content</th>
+                <th>Numbers</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="register : ${listRegister}">
+                <tr>
+
+                    <td>[[${register.id}]]</td>
+                    <td>[[${register.firstName}]]</td>
+                    <td>[[${register.lastName}]]</td>
+                    <td>[[${register.email}]]</td>
+                    <td>[[${register.content}]]</td>
+                    <td>[[${register.registerDetailsList}]]</td>
+
+                </tr>
+
+
+            </th:block>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

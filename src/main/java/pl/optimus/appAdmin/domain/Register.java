@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -45,6 +46,9 @@ public class Register extends AbstractEntity {
 
     @OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
     private List<RegisterDetails> registerDetailsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
+    private List<UplodedFile> registerUploadedFile = new ArrayList<>();
 
     public void addDetails(String serialNumber){
         registerDetailsList.add(new RegisterDetails(serialNumber,this));

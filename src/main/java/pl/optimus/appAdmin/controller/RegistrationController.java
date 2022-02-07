@@ -3,6 +3,7 @@ package pl.optimus.appAdmin.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,11 +35,19 @@ public class RegistrationController {
 
 
 
+    @GetMapping("/listRegister")
+    public String showListToAllRegister(Model model){
+        Iterable<Register> registerList = registerRepository.findAll();
+        model.addAttribute("listRegister",registerList);
+        return "register_information";
+    }
 
     @PostMapping("/registrator")
-    public String saveNewRegisterAndSendEmail(@ModelAttribute Register  registerModel, RedirectAttributes redirectAttr,
-                                @RequestParam("attachment")MultipartFile multipartFile,
-                                HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    public String saveNewRegisterAndSendEmail(@ModelAttribute Register  registerModel,
+                                              @ModelAttribute UplodedFile uplodedFile,
+                                              RedirectAttributes redirectAttr,
+                                              @RequestParam("attachment")MultipartFile multipartFile,
+                                              HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
 
 
         String[] registerSerialNumbers = request.getParameterValues("registerSerialNumber");
@@ -49,6 +58,22 @@ public class RegistrationController {
 
         uploadFileService.uploadToLocal(multipartFile);
         registerRepository.save( registerModel);
+
+
+        UplodedFile uploaadfile = uploadFileService.uploadToDb(multipartFile);
+        UploadFileResponse response = new UploadFileResponse();
+        if(uploaadfile != null){
+            String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/v1//registrator")
+                    .path(uploaadfile.getFileId())
+                    .toUriString();
+
+            response.setDownloadUri(downloadUri);
+            response.setFileId(uplodedFile.getFileId());
+            response.setFileType(uplodedFile.getFileType());
+            response.setUploadStatus(true);
+            response.setMessage("File upload Successfully");
+        }
 
 
         redirectAttr.addFlashAttribute("message", "The form has been sent");
@@ -67,27 +92,6 @@ public class RegistrationController {
         return "message";
     }
 
-//    @PostMapping("/upload/db")
-//    public UploadFileResponse uploadDb(@RequestParam("file")MultipartFile multipartFile)
-//    {
-//        UplodedFile uploadFile = uploadFileService.uploadToDb(multipartFile);
-//        UploadFileResponse response = new UploadFileResponse();
-//        if(uploadFile != null){
-//            String downloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-//                    .path("api/v1/download/")
-//                    .path(uploadFile.getFileId())
-//                    .toUriString();
-//
-//            response.setDownloadUri(downloadUri);
-//            response.setFileId(uploadFile.getFileId());
-//            response.setFileType(uploadFile.getFileType());
-//            response.setUploadStatus(true);
-//            response.setMessage("File upload Successfully");
-//            return response;
-//        }
-//        response.setMessage("Oops 1 something went wrong please re-upload.");
-//        return response;
-//    }
 
 
 
