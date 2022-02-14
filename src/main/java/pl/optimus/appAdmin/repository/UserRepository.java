@@ -2,8 +2,8 @@ package pl.optimus.appAdmin.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.optimus.appAdmin.domain.Register;
+import pl.optimus.appAdmin.domain.User;
 
 @Repository
-public interface RegisterRepository extends CrudRepository<Register, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 }

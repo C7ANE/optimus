@@ -11,7 +11,7 @@
 <p th:text="${message}"></p>
 <div class="container text-center">
     <h3 class="m-3">PLEASE REFILL</h3>
-    <form th:action="@{/api/v1/registrator}" th:object="${registerModel}" method="post" enctype="multipart/form-data"
+    <form th:action="@{/api/v1/newUser}" th:object="${userModel}" method="post" enctype="multipart/form-data"
           style="max-width: 600px;margin: 1% auto">
         <div class="m-3">
             <div class="form-group row mt-1">
@@ -50,25 +50,25 @@
                 <div class="form-group row">
             <label class="col-form-label col-sm-4">First Serial Number</label>
                     <div class="col-sm-4">
-                        <input type="number" name="registerSerialNumber"  placeholder="serialNumberFirst" class="form-control">
+                        <input type="number" name="userSerialNumber"  placeholder="serialNumberFirst" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-4">Second Serial Number</label>
                     <div class="col-sm-4">
-                        <input type="number" name="registerSerialNumber"  placeholder="serialNumberFirst" class="form-control">
+                        <input type="number" name="userSerialNumber"  placeholder="serialNumberFirst" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-4">Third Serial Number</label>
                     <div class="col-sm-4">
-                        <input type="number" name="registerSerialNumber"  placeholder="serialNumberFirst" class="form-control">
+                        <input type="number" name="userSerialNumber"  placeholder="serialNumberFirst" class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-form-label col-sm-4">Fourth Serial Number</label>
                     <div class="col-sm-4">
-                        <input type="number" name="registerSerialNumber"  placeholder="serialNumberFirst" class="form-control">
+                        <input type="number" name="userSerialNumber"  placeholder="serialNumberFirst" class="form-control">
                     </div>
                 </div>
             </th:block>

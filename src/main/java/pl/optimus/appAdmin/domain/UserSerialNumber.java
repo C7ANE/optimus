@@ -15,7 +15,7 @@ import java.io.Serial;
 @ToString(onlyExplicitlyIncluded = true)
 
 @Entity
-public class RegisterDetails extends AbstractEntity {
+public class UserSerialNumber extends BasicEntity {
 
     @Serial
     private static final long serialVersionUID = 8539936152170848000L;
@@ -27,8 +27,8 @@ public class RegisterDetails extends AbstractEntity {
     private String serialNumber;
 
     @ManyToOne
-    @JoinColumn(name = "register_id")
-    private Register register;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }
