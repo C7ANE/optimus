@@ -1,7 +1,6 @@
 package pl.optimus.appAdmin.domain;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -9,9 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serial;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @Builder
@@ -21,7 +18,7 @@ import java.util.Objects;
 @ToString(onlyExplicitlyIncluded = true)
 
 @Entity
-public class Register extends AbstractEntity {
+public class User extends BasicEntity {
     @Serial
     private static final long serialVersionUID = 8539936152170847419L;
     @ToString.Include
@@ -43,10 +40,10 @@ public class Register extends AbstractEntity {
     @Size(max=300)
     private String Content;
 
-    @OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
-    private List<RegisterDetails> registerDetailsList = new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<UserSerialNumber> userDetailsList = new ArrayList<>();
 
     public void addDetails(String serialNumber){
-        registerDetailsList.add(new RegisterDetails(serialNumber,this));
+        userDetailsList.add(new UserSerialNumber(serialNumber,this));
     }
 }

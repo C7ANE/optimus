@@ -10,7 +10,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = false)
 
 @MappedSuperclass
-public class AbstractEntity<I extends Serializable>
+public class BasicEntity<I extends Serializable>
 implements Serializable{
 
     @ToString.Include
