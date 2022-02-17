@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> List User</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div><h1>List User</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+
+                <th>File ID</th>
+                <th>File Name</th>
+                <th>File Type</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="file : ${fileList}">
+                <tr>
+
+
+                    <td>[[${file.name}}]]</td>
+<!--                    <td>[[${responsFile.name}]]</td>-->
+<!--                    <td>[[${responsFile.type}]]</td>-->
+
+                </tr>
+
+
+            </th:block>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>

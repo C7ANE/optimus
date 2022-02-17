@@ -49,6 +49,7 @@ public class EmailServiceImpl implements EmailService {
         String mailContent ="<p><b> Sender name: </b>" + fullName + "</p>";
         mailContent += "<p><b>Sender Email: </b>" + email + "</p>";
         mailContent += "<p><b>A message from to user </b>" + "<br>";
+        mailContent += "<p><b>A message from to user </b>" + "<br>";
         mailContent += content + "<hr><img src='cid:myLogo' />";
 
         ClassPathResource resource = new ClassPathResource("/static/image/logo.png");
