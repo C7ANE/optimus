@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true,callSuper = true)
-@ToString(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true,includeFieldNames = false)
 
 @Entity
 public class User extends BasicEntity {
@@ -43,7 +43,14 @@ public class User extends BasicEntity {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<UserSerialNumber> userDetailsList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "file", cascade = CascadeType.ALL)
+    private List<File> fileUserList = new ArrayList<>();
+
     public void addDetails(String serialNumber){
         userDetailsList.add(new UserSerialNumber(serialNumber,this));
+    }
+
+    public void addFile(File file){
+        fileUserList.add(file);
     }
 }
