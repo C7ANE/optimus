@@ -1,13 +1,19 @@
 package pl.optimus.appAdmin.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true,includeFieldNames = false)
 @Entity
 @Table(name = "files")
 public class File {
@@ -24,6 +30,9 @@ public class File {
     @Lob
     private byte[] data;
 
+    @ManyToOne
+    @JoinColumn(name = "File_id")
+    private File file;
 
     public File() {
     }
@@ -36,32 +45,6 @@ public class File {
 
 
 
-    public String getId() {
-        return id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 
 }

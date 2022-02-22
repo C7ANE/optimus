@@ -13,16 +13,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.optimus.appAdmin.domain.File;
 import pl.optimus.appAdmin.domain.User;
-import pl.optimus.appAdmin.repository.FileRepository;
 import pl.optimus.appAdmin.repository.UserRepository;
 import pl.optimus.appAdmin.response.ResponseFile;
 import pl.optimus.appAdmin.response.ResponseMessage;
 import pl.optimus.appAdmin.service.File.FileService;
 import pl.optimus.appAdmin.service.email.EmailService;
+import pl.optimus.appAdmin.service.user.UserService;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -33,15 +32,16 @@ import java.util.stream.Collectors;
 public class FormController {
 
     private final UserRepository userRepository;
+    private final UserService userService;
     private final EmailService emailService;
-    private final FileRepository fileRepository;
     private final FileService fileService;
 
-    public FormController(FileService fileService, UserRepository userRepository, EmailService emailService, FileRepository fileRepository) {
+    public FormController(FileService fileService, UserRepository userRepository, UserService userService, EmailService emailService) {
         this.fileService = fileService;
         this.userRepository = userRepository;
+        this.userService = userService;
         this.emailService = emailService;
-        this.fileRepository = fileRepository;
+
     }
 
 
@@ -65,10 +65,7 @@ public class FormController {
                                           HttpServletRequest request) throws MessagingException {
 
 
-        String[] userSerialNumbers = request.getParameterValues("userSerialNumber");
-        for (String userSerialNumber : userSerialNumbers) {
-            userModel.addDetails(userSerialNumber);
-        }
+       userService.saveUserSerialNumber(userModel,request);
 
 
         String message = "";
@@ -90,6 +87,8 @@ public class FormController {
 
         return "messageToUser";
     }
+
+
 
     @GetMapping("/files")
     public String getListFiles(Model model) {
